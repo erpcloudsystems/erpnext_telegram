@@ -9,7 +9,11 @@ from frappe.model.document import Document
 from frappe.utils import get_url_to_form
 from frappe import _
 import json
-from werkzeug import url_fix
+try:
+	from werkzeug import url_fix
+except ImportError:
+	# url_fix was removed in werkzeug 3 (Frappe v15)
+	from werkzeug.urls import iri_to_uri as url_fix
 from six.moves.urllib.parse import quote, urlencode, urlparse
 
 # Test API for resending notification from another instance through Hooks to telegram
